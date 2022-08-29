@@ -1,28 +1,32 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void main(){
-    int i,j,k,l;
-    int **a=(int **)malloc(3*sizeof(int *));
-    for(i=0;i<3;i++){
-        a[i]=(int *)malloc(3*sizeof(int));
-    }
-    printf("Enter the elements of matrix (3X3) \n");
-    for(i=0;i<3;i++){
-        for(j=0;j<3;j++){
-            scanf("%d",&a[i][j]);
+int main()
+{
+    int i, j, k, n, sum = 0;
+    int **a;
+
+    printf("Enter the order of the matrix: ");
+    scanf("%d", &n);
+
+    a = (int **)malloc(n * sizeof(int *));
+    for (i = 0; i < n; i++)
+        a[i] = (int *)malloc(n * sizeof(int));
+
+    printf("Enter the elements of the matrix: ");
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            scanf("%d", &a[i][j]);
+
+    for (i = 0; i < n; i++)
+    {
+        k = 1;
+        for (j = 0; j < n; j++)
+        {
+            k = k * a[j][(i + j) % n];
         }
+        sum = sum + k;
     }
-    printf("The matrix is\n");
-    for(i=0;i<3;i++){
-        for(j=0;j<3;j++){
-            printf("%d ",a[i][j]);
-        }
-        printf("\n");
-    }
-    int det=0;
-    for(i=0;i<3;i++){
-        det=det+a[0][i]*(a[1][(i+1)%3]*a[2][(i+2)%3]-a[1][(i+2)%3]*a[2][(i+1)%3]);
-    }
-    printf("The determinant of matrix is %d",det);
+    printf("The determinant of the matrix is: %d", sum);
+    return 0;
 }
