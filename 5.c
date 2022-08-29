@@ -3,30 +3,18 @@
 
 int main()
 {
-    int i, j, k, n, sum = 0;
-    int **a;
-
-    printf("Enter the order of the matrix: ");
-    scanf("%d", &n);
-
-    a = (int **)malloc(n * sizeof(int *));
-    for (i = 0; i < n; i++)
-        a[i] = (int *)malloc(n * sizeof(int));
-
-    printf("Enter the elements of the matrix: ");
-    for (i = 0; i < n; i++)
-        for (j = 0; j < n; j++)
-            scanf("%d", &a[i][j]);
-
-    for (i = 0; i < n; i++)
+    int row = 3, col = 3;
+    int *arr = (int *)malloc(row * col * sizeof(int));
+    int i, j, count;
+    printf("Enter the Elements: \n");
+    for (i = 0; i < row; i++)
     {
-        k = 1;
-        for (j = 0; j < n; j++)
+        for (j = 0; j < col; j++)
         {
-            k = k * a[j][(i + j) % n];
+            scanf("%d", &*(arr + i * col + j));
         }
-        sum = sum + k;
     }
-    printf("The determinant of the matrix is: %d", sum);
+    int det = (*(arr + 0 * col + 0)) * ((*(arr + 1 * col + 1)) * (*(arr + 2 * col + 2)) - (*(arr + 1 * col + 2)) * (*(arr + 2 * col + 1))) - (*(arr + 0 * col + 1)) * ((*(arr + 1 * col + 0)) * (*(arr + 2 * col + 2)) - (*(arr + 1 * col + 2)) * (*(arr + 2 * col + 0))) + (*(arr + 0 * col + 2)) * ((*(arr + 1 * col + 0)) * (*(arr + 2 * col + 1)) - (*(arr + 1 * col + 1)) * (*(arr + 2 * col + 0)));
+    printf("Determinant :- %d", det);
     return 0;
 }
