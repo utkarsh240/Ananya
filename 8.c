@@ -19,7 +19,7 @@ int main()
             scanf("%d",&a[i][j]);
         }
     }
-    printf("The matrix is: ");
+    printf("The matrix is: \n");
     for(i=0;i<r;i++)
     {
         printf(" ");
@@ -27,7 +27,7 @@ int main()
         {
             printf("%d ",a[i][j]);
         }
-        printf(" ");
+        printf("\n");
     }
     printf(" ");
     int flag=0;
@@ -103,7 +103,7 @@ int main()
                 }
                 else
                 {
-                    printf("The matrix is not a triangular matrix");
+                    printf("The matrix is not a tri digonal matrix");
                 }
             }
         }
