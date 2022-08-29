@@ -3,68 +3,110 @@
 
 int main()
 {
-    int i,j,n,k,l,m,p,q,r,s,t,u,v,w,x,y,z;
-    printf("\nEnter the number of rows and columns of the matrix: ");
-    scanf("%d%d",&n,&m);
-    int a[n][m];
-    printf("\nEnter the elements of the matrix: ");
-    for(i=0;i<n;i++)
+    int i,j,r,c;
+    printf("Enter the number of rows and columns of the matrix: ");
+    scanf("%d%d",&r,&c);
+    int **a=(int **)malloc(r*sizeof(int *));
+    for(i=0;i<r;i++)
     {
-        for(j=0;j<m;j++)
+        a[i]=(int *)malloc(c*sizeof(int));
+    }
+    printf("Enter the elements of the matrix: ");
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
         {
             scanf("%d",&a[i][j]);
         }
     }
-    printf("\nThe matrix is: ");
-    for(i=0;i<n;i++)
+    printf("The matrix is: ");
+    for(i=0;i<r;i++)
     {
-        for(j=0;j<m;j++)
+        printf(" ");
+        for(j=0;j<c;j++)
         {
             printf("%d ",a[i][j]);
         }
-        printf("\n");
+        printf(" ");
     }
-    for(i=0;i<n;i++)
+    printf(" ");
+    int flag=0;
+    for(i=0;i<r;i++)
     {
-        for(j=0;j<m;j++)
+        for(j=0;j<c;j++)
         {
-            if(i>j)
+            if(i<j && a[i][j]!=0)
             {
-                if(a[i][j]!=0)
-                {
-                    printf("\nThe matrix is not a lower triangular matrix");
-                    break;
-                }
+                flag=1;
+                break;
             }
-            else if(i<j)
+        }
+    }
+
+    if(flag==0)
+    {
+        printf("The matrix is a lower triangular matrix");
+    }
+    else
+    {
+        flag=0;
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
             {
-                if(a[i][j]!=0)
+                if(i>j && a[i][j]!=0)
                 {
-                    printf("\nThe matrix is not a upper triangular matrix");
-                    break;
-                }
-            }
-            else if(i==j)
-            {
-                if(a[i][j]!=1)
-                {
-                    printf("\nThe matrix is not a tri diagonal matrix");
+                    flag=1;
                     break;
                 }
             }
         }
-    }
-    if(i==n && j==m)
-    {
-        printf("\nThe matrix is a lower triangular matrix");
-    }
-    if(i==n && j==m)
-    {
-        printf("\nThe matrix is a upper triangular matrix");
-    }
-    if(i==n && j==m)
-    {
-        printf("\nThe matrix is a tri diagonal matrix");
+        if(flag==0)
+        {
+            printf("The matrix is a upper triangular matrix");
+        }
+        else
+        {
+            flag=0;
+            for(i=0;i<r;i++)
+            {
+                for(j=0;j<c;j++)
+                {
+                    if(i!=j && a[i][j]!=0)
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+            }
+            if(flag==0)
+            {
+                printf("The matrix is a diagonal matrix");
+            }
+            else
+            {
+                flag=0;
+                for(i=0;i<r;i++)
+                {
+                    for(j=0;j<c;j++)
+                    {
+                        if((i==j || i==j+1 || i==j-1) && a[i][j]!=0)
+                        {
+                            flag=1;
+                            break;
+                        }
+                    }
+                }
+                if(flag==0)
+                {
+                    printf("The matrix is a tri diagonal matrix");
+                }
+                else
+                {
+                    printf("The matrix is not a triangular matrix");
+                }
+            }
+        }
     }
     return 0;
 }
