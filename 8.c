@@ -1,33 +1,112 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 int main()
 {
-    int n, x;
-    int sum = 0;
-    printf("Order of Polynomial :- ");
-    scanf("%d", &n);
-    int *poly = (int *)malloc((n + 1) * sizeof(int));
+    int i,j,r,c;
+    printf("Enter the number of rows and columns of the matrix: ");
+    scanf("%d%d",&r,&c);
+    int **a=(int **)malloc(r*sizeof(int *));
+    for(i=0;i<r;i++)
+    {
+        a[i]=(int *)malloc(c*sizeof(int));
+    }
+    printf("Enter the elements of the matrix: ");
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("The matrix is: ");
+    for(i=0;i<r;i++)
+    {
+        printf(" ");
+        for(j=0;j<c;j++)
+        {
+            printf("%d ",a[i][j]);
+        }
+        printf(" ");
+    }
+    printf(" ");
+    int flag=0;
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            if(i<j && a[i][j]!=0)
+            {
+                flag=1;
+                break;
+            }
+        }
+    }
 
-    printf("Enter the coefficients of the polynomials : \n");
-    for (int i = 0; i < n + 1; i++)
-        scanf("%d", &poly[i]);
-
-
-    printf("The polynomial is \n");
-    for (int i = 0; i < n; i++)
-        printf("%d*x^(%d) + ", poly[i], (n - i));
-
-    printf("The Value of 'x' = ");
-    scanf("%d", &x);
-
-    
-    for (int i = 0; i < n + 1; i++)
-        sum = sum + (poly[i] * pow(x, (n - i)));
-
-    printf("%d = 0", poly[n]);
-
-    printf("\nThe SUM is %d", sum);
+    if(flag==0)
+    {
+        printf("The matrix is a lower triangular matrix");
+    }
+    else
+    {
+        flag=0;
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                if(i>j && a[i][j]!=0)
+                {
+                    flag=1;
+                    break;
+                }
+            }
+        }
+        if(flag==0)
+        {
+            printf("The matrix is a upper triangular matrix");
+        }
+        else
+        {
+            flag=0;
+            for(i=0;i<r;i++)
+            {
+                for(j=0;j<c;j++)
+                {
+                    if(i!=j && a[i][j]!=0)
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+            }
+            if(flag==0)
+            {
+                printf("The matrix is a diagonal matrix");
+            }
+            else
+            {
+                flag=0;
+                for(i=0;i<r;i++)
+                {
+                    for(j=0;j<c;j++)
+                    {
+                        if((i==j || i==j+1 || i==j-1) && a[i][j]!=0)
+                        {
+                            flag=1;
+                            break;
+                        }
+                    }
+                }
+                if(flag==0)
+                {
+                    printf("The matrix is a tri diagonal matrix");
+                }
+                else
+                {
+                    printf("The matrix is not a triangular matrix");
+                }
+            }
+        }
+    }
     return 0;
 }
